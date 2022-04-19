@@ -8,7 +8,7 @@
  grant connect to test -- 연결 권한
  grant resource to test  -- 자원 권한 (table/view사용권한)
  
- grant connect, resource to test -- 2개 명령을 한번에 처리하기
+ grant connect, resource, create view to test -- 2개 명령을 한번에 처리하기
  
  3. 권한 회수
  revoke connect, resource from test
