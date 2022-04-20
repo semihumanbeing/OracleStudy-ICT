@@ -90,8 +90,31 @@ GRANT SELECT ON GOGEKVIEW TO TEST7
 
 SELECT * FROM test.GOGEKVIEW
 
+-- GOGEKVIEW ¸¦ ÀÌ¿ëÇØ¼­ Ãß°¡ÇÊµå¸¦ ¸¸µé±â
+-- 1. ±âÁ¸ ÄÃ·³Àº ±×´ë·Î ³Ö°í Ãß°¡(³ªÀÌ/¶ì) 
+-- 2. ºä ÀÌ¸§: GOGEKVIEW2
+CREATE OR REPLACE VIEW GOGEKVIEW2
+AS 
+SELECT 
+GV.*,
+TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))- BIRTHYEAR +1 AS AGE,
+CASE MOD(BIRTHYEAR,12)
+	WHEN 0 THEN '¿ø¼þÀÌ¶ì'
+	WHEN 1 THEN '´ß¶ì'
+	WHEN 2 THEN '°³¶ì'
+	WHEN 3 THEN 'µÅÁö¶ì'
+	WHEN 4 THEN 'Áã¶ì'
+	WHEN 5 THEN '¼Ò¶ì'
+	WHEN 6 THEN 'È£¶ûÀÌ¶ì'
+	WHEN 7 THEN 'Åä³¢¶ì'
+	WHEN 8 THEN '¿ë¶ì'
+	WHEN 9 THEN '¹ì¶ì'
+	WHEN 10 THEN '¸»¶ì'
+	WHEN 11 THEN '¾ç¶ì'
+	END AS ¶ì
+FROM (SELECT * FROM GOGEKVIEW)GV
 
-
+SELECT * FROM GOGEKVIEW2
 
 
 
