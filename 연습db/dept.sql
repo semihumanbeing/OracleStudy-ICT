@@ -5,4 +5,7 @@ create table dept
    loc       varchar2(10),
    constraint pk_dept_deptno primary key(deptno)
 )
+
+select * from sawon
+select * from GOGEKVIEW2
 /
