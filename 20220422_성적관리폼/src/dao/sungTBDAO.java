@@ -24,7 +24,7 @@ public class sungTBDAO {
 		// 프라이빗 생성자를 만들어주어 외부에서 생성되지 않도록 한다.
 
 	}
-	
+
 	public List<SungVO> selectList() {
 		List<SungVO> list = new ArrayList<SungVO>();
 
@@ -51,8 +51,8 @@ public class sungTBDAO {
 				vo.setKor(rs.getInt("kor"));
 				vo.setEng(rs.getInt("eng"));
 				vo.setMat(rs.getInt("mat"));
-				
-				//db에 있는 컬럼 타입과 무관하게 String 형으로 읽어올 수 있다.
+
+				// db에 있는 컬럼 타입과 무관하게 String 형으로 읽어올 수 있다.
 				vo.setTot(rs.getString("tot"));
 				vo.setAvg(rs.getString("avg"));
 				vo.setRank(rs.getString("rank"));
@@ -79,6 +79,106 @@ public class sungTBDAO {
 
 		return list;
 	}
-	
 
+	public int insert(SungVO vo) {
+		int res = 0;
+		Connection connection = null;
+		PreparedStatement pstmt = null; // 1 2 3 4 <- parameter index
+		String sql = "insert into sungtb values(seq_sungtb_idx.nextVal,?,?,?,?)";
+		try {
+			// 1. connection 얻어오기
+			connection = DBService.getInstance().getConnection();
+
+			// 2. prepared statement 얻어오기
+			pstmt = connection.prepareStatement(sql);
+
+			// 3. pstmt에 파라미터 세팅
+			pstmt.setString(1, vo.getName());
+			pstmt.setInt(2, vo.getKor());
+			pstmt.setInt(3, vo.getEng());
+			pstmt.setInt(4, vo.getMat());
+
+			// 4. insert : res <- 처리된 행 수 반환
+			res = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close(); // 2
+				connection.close(); // 1
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return res;
+	}
+
+	public int delete(int idx) {
+		int res = 0;
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		String sql = "delete from sungtb where idx = ?";
+		try {
+			// 1. connection 얻어오기
+			connection = DBService.getInstance().getConnection();
+			
+			// 2. prepared statement 얻어오기
+			pstmt = connection.prepareStatement(sql);
+			
+			// 3. pstmt에 파라미터 세팅
+			pstmt.setInt(1,idx);
+			
+			// 4. dml(insert,update,delete) : res <- 처리된 행 수 반환
+			res = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close(); // 2
+				connection.close(); // 1
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return res;
+	}
+
+	public int update(SungVO vo) {
+		int res = 0;
+		Connection connection = null;
+		PreparedStatement pstmt = null; //     1 		2 		 3 		  4    			5 <- parameter index
+		String sql = "update sungtb set name = ?, kor = ?, eng = ?, mat = ? where idx = ?";
+		try {
+			// 1. connection 얻어오기
+			connection = DBService.getInstance().getConnection();
+			
+			// 2. prepared statement 얻어오기
+			pstmt = connection.prepareStatement(sql);
+			
+			// 3. pstmt에 파라미터 세팅
+			pstmt.setString(1, vo.getName());
+			pstmt.setInt(2, vo.getKor());
+			pstmt.setInt(3, vo.getEng());
+			pstmt.setInt(4, vo.getMat());
+			pstmt.setInt(5, vo.getIdx());
+			
+			// 4. dml(insert,update,delete) : res <- 처리된 행 수 반환
+			res = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close(); // 2
+				connection.close(); // 1
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return res;
+	}
+	
+	
 }

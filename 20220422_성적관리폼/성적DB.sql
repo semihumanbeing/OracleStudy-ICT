@@ -49,7 +49,9 @@ order by idx
 
 select * from sungtb_view
 
+delete from sungtb where idx = 6
 
+update sungtb set name = '�ϱ浿', kor = 100, eng = 80, mat = 70 where idx = 1
 
 
 
