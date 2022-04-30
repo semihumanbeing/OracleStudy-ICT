@@ -86,7 +86,11 @@ order by s1.deptno asc
 -- 메인쿼리의 레코드 수 만큼 서브쿼리가 수행되므로 성능저하의 요인이 된다. 
 -- 가급적이면 사용하지 말것
 
+select * from gogek where goaddr in (select goaddr from sawon where substr(goaddr,1,2)='서울')
 
 
 
 
+select * from sawon where sahire in (select sahire from sawon where saname = '최불암');
+
+select * from sawon where min(sahire)
