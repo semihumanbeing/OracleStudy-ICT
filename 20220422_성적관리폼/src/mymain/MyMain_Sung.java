@@ -226,13 +226,12 @@ public class MyMain_Sung extends JFrame {
 		// 삭제하기
 		int idx = Integer.parseInt(jtf_no.getText());
 
-		SungVO vo = new SungVO();
-		vo.setIdx(idx);
+		SungVO vo = new SungVO(idx);
 
 		// 1. DB삭제
 		int res = sungTBDAO.getInstance().delete(vo.getIdx());
 		// 2. 전체 데이터 가져오기
-		display_input_sung();
+
 		display_sung_list();
 
 		// 3. 데이터가없으면 clear하기
@@ -243,6 +242,7 @@ public class MyMain_Sung extends JFrame {
 		if (current_pos >= sungList.size()) {
 			current_pos--;
 		}
+		display_input_sung();
 
 	}
 
@@ -297,11 +297,7 @@ public class MyMain_Sung extends JFrame {
 		// 등록
 		if (bAdd) {
 			// 추가할 데이터를 포장
-			SungVO vo = new SungVO();
-			vo.setName(name);
-			vo.setKor(kor);
-			vo.setEng(eng);
-			vo.setMat(mat);
+			SungVO vo = new SungVO(name, kor, eng, mat);
 
 			// insert
 			int res = sungTBDAO.getInstance().insert(vo);
@@ -336,12 +332,8 @@ public class MyMain_Sung extends JFrame {
 			// 수정하기
 			int idx = Integer.parseInt(jtf_no.getText());
 			// 1. 수정데이터 포장
-			SungVO vo = new SungVO();
-			vo.setName(name);
-			vo.setKor(kor);
-			vo.setEng(eng);
-			vo.setMat(mat);
-			vo.setIdx(idx);
+			SungVO vo = new SungVO(idx, name, kor, eng, mat);
+
 			// 2. DB업데이트
 			int res = sungTBDAO.getInstance().update(vo);
 			// 3. 전체 데이터 가져오기

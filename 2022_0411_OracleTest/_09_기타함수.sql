@@ -82,6 +82,10 @@ SELECT
 	END AS SEASON
 FROM SAWON
 
+select * from sawon 
+where sahire in
+(select sahire from sawon where to_char(sahire,'MM') in (3,4,5))
+
 -- 고객테이블에서 고객의 출생 계절을 추출하세요
 SELECT 
 	GOBUN,

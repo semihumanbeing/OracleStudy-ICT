@@ -10,6 +10,30 @@ public class SungVO {
 	String avg;
 	String rank;
 	
+	
+	public SungVO() {
+		super();
+	}
+	
+	public SungVO(int idx) {
+		super();
+		this.idx = idx;
+	}
+	public SungVO(int idx, String name, int kor, int eng, int mat) {
+		super();
+		this.idx = idx;
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.mat = mat;
+	}
+	public SungVO(String name, int kor, int eng, int mat) {
+		super();
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.mat = mat;
+	}
 	public int getIdx() {
 		return idx;
 	}
